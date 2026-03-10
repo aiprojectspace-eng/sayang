@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="ms">
 <head>
   <meta charset="UTF-8" />
@@ -369,21 +369,18 @@
     setStatus('Sending love...', '');
 
     try {
-      const res = await fetch(`${NTFY}/${TOPIC}`, {
+      await fetch(`${NTFY}/${TOPIC}`, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
           'Title':    '💕 Someone is thinking of you!',
           'Priority': 'default',
           'Tags':     'heart,sparkling_heart',
-          'Content-Type': 'text/plain; charset=utf-8',
         },
         body: chosen,
       });
-      if (res.ok) {
-        setStatus('Love sent! 💌', 'success');
-      } else {
-        setStatus('Failed to send. Try again? 🥺', 'error');
-      }
+      // no-cors returns opaque response — assume success if no throw
+      setStatus('Love sent! 💌', 'success');
     } catch {
       setStatus('No internet. Try again? 🥺', 'error');
     }
